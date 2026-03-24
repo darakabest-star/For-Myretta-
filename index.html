@@ -14,6 +14,8 @@ body{
   text-align:center;
   overflow-x:hidden;
 }
+
+/* SECTION */
 section{
   height:100vh;
   display:flex;
@@ -21,6 +23,8 @@ section{
   justify-content:center;
   align-items:center;
 }
+
+/* LOVE FALL */
 .fa-heart{
   position:fixed;
   top:-10px;
@@ -30,6 +34,8 @@ section{
 @keyframes fall{
   to{transform:translateY(100vh);}
 }
+
+/* GAME */
 #board{
   display:grid;
   grid-template-columns:repeat(3,70px);
@@ -45,9 +51,13 @@ section{
   cursor:pointer;
   border-radius:10px;
 }
+
+/* CAKE */
 #cake{
   width:360px;
 }
+
+/* flame */
 .flame{
   animation:flicker 0.8s infinite alternate;
 }
@@ -55,11 +65,14 @@ section{
   from{transform:scaleY(1);}
   to{transform:scaleY(1.2);}
 }
+
+/* smoke */
 @keyframes smoke{
   0%{opacity:1;}
   100%{opacity:0; transform:translateY(-30px);}
 }
 .smoke{animation:smoke 1s forwards;}
+
 button{
   margin-top:15px;
   padding:10px 25px;
@@ -77,32 +90,40 @@ button{
 
 <audio id="musik" src="https://feeldreams.github.io/maukahkamu/seandainya.mp3"></audio>
 
+<!-- SECTION 1 -->
 <section onclick="startMusic()">
 <h1>Hai Myretta 💖</h1>
 <p>scroll yaa 😊</p>
 </section>
 
+<!-- SECTION 2 GAME -->
 <section>
 <h2>cocokkan emoji 🎮</h2>
 <div id="board"></div>
 <p id="msg"></p>
 </section>
 
+<!-- SECTION 3 -->
 <section>
-<h2>happy birthday 💖</h2>
-<p>semoga selalu bahagia yaa ✨</p>
+<h2>aku mau ngomong sesuatu...</h2>
+<p>happy birthday yaaa 💖</p>
 </section>
 
+<!-- SECTION 4 CAKE -->
 <section>
 <h2>make a wish ✨</h2>
 
 <svg id="cake" viewBox="0 0 300 315">
+
 <rect x="12" y="218" width="276" height="82" rx="16" fill="#f4afc4"/>
 <rect x="12" y="212" width="276" height="18" rx="9" fill="#e91e63"/>
+
 <rect x="48" y="158" width="204" height="65" rx="16" fill="#f8c0d4"/>
 <rect x="48" y="152" width="204" height="18" rx="9" fill="#e91e63"/>
 
 <rect x="72" y="22" width="28" height="134" rx="7" fill="#4caf50"/>
+<line x1="86" y1="22" x2="86" y2="10" stroke="black"/>
+
 <rect x="152" y="22" width="70" height="18" rx="7" fill="#9c27b0"/>
 <rect x="152" y="86" width="70" height="18" rx="7" fill="#9c27b0"/>
 <rect x="152" y="140" width="70" height="18" rx="7" fill="#9c27b0"/>
@@ -112,6 +133,7 @@ button{
 <g id="f1" class="flame">
 <ellipse cx="86" cy="5" rx="8" ry="14" fill="orange"/>
 </g>
+
 <g id="f5" class="flame">
 <ellipse cx="187" cy="5" rx="8" ry="14" fill="orange"/>
 </g>
@@ -119,21 +141,26 @@ button{
 <g id="s1" style="opacity:0">
 <ellipse cx="86" cy="0" rx="6" ry="8" fill="gray"/>
 </g>
+
 <g id="s5" style="opacity:0">
 <ellipse cx="187" cy="0" rx="6" ry="8" fill="gray"/>
 </g>
+
 </svg>
 
 <button onclick="blow()">💨 tiup</button>
 </section>
 
 <script>
+
+/* MUSIC */
 function startMusic(){
   let m=document.getElementById("musik");
   m.volume=0.5;
   m.play().catch(()=>{});
 }
 
+/* LOVE FALL */
 setInterval(()=>{
   let h=document.createElement("div");
   h.className="fa-heart";
@@ -144,6 +171,7 @@ setInterval(()=>{
   setTimeout(()=>h.remove(),4000);
 },300);
 
+/* GAME */
 let emojis=['🎂','💗','🎉','🥳','😘','🥰'];
 let deck=[...emojis,...emojis].sort(()=>Math.random()-0.5);
 let board=document.getElementById("board");
@@ -175,6 +203,7 @@ deck.forEach(e=>{
   board.appendChild(c);
 });
 
+/* BLOW CAKE */
 function blow(){
   let f1=document.getElementById("f1");
   let f5=document.getElementById("f5");
@@ -192,6 +221,7 @@ function blow(){
   s1.classList.add("smoke");
   s5.classList.add("smoke");
 }
+
 </script>
 
 </body>
