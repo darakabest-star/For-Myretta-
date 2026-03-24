@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'/>
+<meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+<title>For Myretta 💖</title>
+
+<style>
+body{
+  margin:0;
+  font-family:sans-serif;
+  background:black;
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
+}
+section{
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+}
+.fa-heart{
+  position:fixed;
+  top:-10px;
+  color:pink;
+  animation:fall linear forwards;
+}
+@keyframes fall{
+  to{transform:translateY(100vh);}
+}
+#board{
+  display:grid;
+  grid-template-columns:repeat(3,70px);
+  gap:10px;
+}
+.card{
+  width:70px;height:70px;
+  background:#222;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  cursor:pointer;
+  border-radius:10px;
+}
+#cake{
+  width:360px;
+}
+.flame{
+  animation:flicker 0.8s infinite alternate;
+}
+@keyframes flicker{
+  from{transform:scaleY(1);}
+  to{transform:scaleY(1.2);}
+}
+@keyframes smoke{
+  0%{opacity:1;}
+  100%{opacity:0; transform:translateY(-30px);}
+}
+.smoke{animation:smoke 1s forwards;}
+button{
+  margin-top:15px;
+  padding:10px 25px;
+  border:none;
+  border-radius:20px;
+  background:#ff6fa5;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="musik" src="https://feeldreams.github.io/maukahkamu/seandainya.mp3"></audio>
+
+<section onclick="startMusic()">
+<h1>Hai Myretta 💖</h1>
+<p>scroll yaa 😊</p>
+</section>
+
+<section>
+<h2>cocokkan emoji 🎮</h2>
+<div id="board"></div>
+<p id="msg"></p>
+</section>
+
+<section>
+<h2>happy birthday 💖</h2>
+<p>semoga selalu bahagia yaa ✨</p>
+</section>
+
+<section>
+<h2>make a wish ✨</h2>
+
+<svg id="cake" viewBox="0 0 300 315">
+<rect x="12" y="218" width="276" height="82" rx="16" fill="#f4afc4"/>
+<rect x="12" y="212" width="276" height="18" rx="9" fill="#e91e63"/>
+<rect x="48" y="158" width="204" height="65" rx="16" fill="#f8c0d4"/>
+<rect x="48" y="152" width="204" height="18" rx="9" fill="#e91e63"/>
+
+<rect x="72" y="22" width="28" height="134" rx="7" fill="#4caf50"/>
+<rect x="152" y="22" width="70" height="18" rx="7" fill="#9c27b0"/>
+<rect x="152" y="86" width="70" height="18" rx="7" fill="#9c27b0"/>
+<rect x="152" y="140" width="70" height="18" rx="7" fill="#9c27b0"/>
+<rect x="152" y="22" width="18" height="72" rx="7" fill="#9c27b0"/>
+<rect x="204" y="86" width="18" height="72" rx="7" fill="#9c27b0"/>
+
+<g id="f1" class="flame">
+<ellipse cx="86" cy="5" rx="8" ry="14" fill="orange"/>
+</g>
+<g id="f5" class="flame">
+<ellipse cx="187" cy="5" rx="8" ry="14" fill="orange"/>
+</g>
+
+<g id="s1" style="opacity:0">
+<ellipse cx="86" cy="0" rx="6" ry="8" fill="gray"/>
+</g>
+<g id="s5" style="opacity:0">
+<ellipse cx="187" cy="0" rx="6" ry="8" fill="gray"/>
+</g>
+</svg>
+
+<button onclick="blow()">💨 tiup</button>
+</section>
+
+<script>
+function startMusic(){
+  let m=document.getElementById("musik");
+  m.volume=0.5;
+  m.play().catch(()=>{});
+}
+
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="fa-heart";
+  h.innerHTML="💗";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*3+2)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),4000);
+},300);
+
+let emojis=['🎂','💗','🎉','🥳','😘','🥰'];
+let deck=[...emojis,...emojis].sort(()=>Math.random()-0.5);
+let board=document.getElementById("board");
+let first=null;
+
+deck.forEach(e=>{
+  let c=document.createElement("div");
+  c.className="card";
+  c.innerHTML="?";
+  c.onclick=()=>{
+    c.innerHTML=e;
+    if(!first){first=c;}
+    else{
+      if(first.innerHTML===c.innerHTML){
+        first=null;
+        if([...board.children].every(x=>x.innerHTML!="?")){
+          document.getElementById("msg").innerText="yeay berhasil 💖";
+          setTimeout(()=>window.scrollBy({top:window.innerHeight,behavior:"smooth"}),1200);
+        }
+      }else{
+        setTimeout(()=>{
+          c.innerHTML="?";
+          first.innerHTML="?";
+          first=null;
+        },500);
+      }
+    }
+  }
+  board.appendChild(c);
+});
+
+function blow(){
+  let f1=document.getElementById("f1");
+  let f5=document.getElementById("f5");
+  let s1=document.getElementById("s1");
+  let s5=document.getElementById("s5");
+
+  new Audio("https://www.soundjay.com/human/sounds/blow-1.mp3").play();
+
+  f1.style.opacity=0;
+  f5.style.opacity=0;
+
+  s1.style.opacity=1;
+  s5.style.opacity=1;
+
+  s1.classList.add("smoke");
+  s5.classList.add("smoke");
+}
+</script>
+
+</body>
+</html>
